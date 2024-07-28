@@ -1,4 +1,4 @@
-export const host = "https://flick-talk.onrender.com";
+export const host = "https://flick-talk.netlify.app";
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar/`;
