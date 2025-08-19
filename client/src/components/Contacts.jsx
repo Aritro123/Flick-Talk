@@ -43,7 +43,8 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
               >
                 <div className="avatar">
                   <img
-                    src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                    // src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                    src={contact.avatarImage}
                     alt="Avatar"
                   />
                 </div>
@@ -57,7 +58,8 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
         <div className="current-user">
           <div className="avatar">
             <img
-              src={`data:image/svg+xml;base64,${currentUserImage}`}
+              // src={`data:image/svg+xml;base64,${currentUserImage}`}
+              src={currentUserImage}
               alt="avatar"
             />
           </div>

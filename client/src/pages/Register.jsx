@@ -21,34 +21,35 @@ const Register = () => {
     }
   }, []);
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   const handleValidation = () => {
-    //have to check handleValidation by if condition
     const { password, email, username, confirmPassword } = values;
+  
     if (password !== confirmPassword) {
-      toast.error("password and confirm password should be the same");
+      toast.error("Password and confirm password should be the same");
       return false;
     } else if (username.length < 3) {
-      toast.error("User name should be greater than 3 characters");
+      toast.error("Username should be at least 3 characters");
       return false;
     } else if (password.length < 8) {
-      toast.error("password should be greater than 8 characters");
+      toast.error("Password should be at least 8 characters");
       return false;
     } else if (email === "") {
-      toast.error("email is required");
-      return true;
+      toast.error("Email is required");
+      return false; // ✅ FIXED HERE
     }
+  
+    return true; // ✅ All validations passed
   };
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const isValid = handleValidation(); // Assuming handleValidation returns a boolean
-    // if (!isValid){return;}  // Exit early if validation fails
-    handleValidation();
+  
+    // const isValid = handleValidation();
+    // if (!isValid) return; // Stop if validation fails
+  
     const { email, username, password } = values;
+  
     try {
       const response = await fetch(registerRoute, {
         method: "POST",
@@ -57,23 +58,19 @@ const Register = () => {
         },
         body: JSON.stringify({ username, email, password }),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to register");
-      }
+  
+      if (!response.ok) throw new Error("Failed to register");
+  
       const data = await response.json();
-      console.log(data);
       if (data.status === false) {
         toast.error(data.message);
-      }
-      if (data.status === true) {
+      } else if (data.status === true) {
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/setAvatar");
       }
     } catch (error) {
       console.error("Error registering:", error);
     }
-    // }
   };
 
   const handleChange = (event) => {

@@ -62,29 +62,50 @@ const SetAvatar = () => {
     }
   };
 
+  // useEffect(() => {
+  //   console.log("useEffect is called"); // Debugging log
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = [];
+  //       for (let i = 0; i < 4; i++) {
+  //         const image = await axios.get(
+  //           `${api}/${Math.round(Math.random() * 1000)}`
+  //         );
+  //         console.log("Fetched image data:", image); // Debugging log
+          
+  //         const buffer = Buffer.from(image.data); // Use Buffer.from instead of new Buffer
+  //         data.push(buffer.toString("base64"));
+  //       }
+  //       console.log("Fetched data:", data); // Debugging log
+  //       setAvatars(data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = [];
-        for (let i = 0; i < 4; i++) {
-          const image = await axios.get(
-            `${api}/${Math.round(Math.random() * 1000)}`
-          );
-
-          const buffer = Buffer.from(image.data); // Use Buffer.from instead of new Buffer
-          data.push(buffer.toString("base64"));
-        }
-        setAvatars(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data!!!!:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData(); // Call the async function immediately
-  }, []); // Empty dependency array means this effect runs only once after the initial render
-
+    console.log("useEffect is called"); // Debugging log
+  
+    // Use static avatar URLs
+    const staticAvatars = [
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Ava1",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Ava2",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Ava3",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Ava4",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Ava5",
+    ];
+    
+  
+    // Set static avatars
+    setAvatars(staticAvatars);
+    setIsLoading(false);
+  }, []);
+  
   return (
     <>
       {isLoading ? (
@@ -106,7 +127,8 @@ const SetAvatar = () => {
                   }`}
                 >
                   <img
-                    src={`data:image/svg+xml;base64,${avatar}`}
+                    // src={`data:image/svg+xml;base64,${avatar}`}
+                    src={avatar}
                     alt="avatar"
                     key={avatar}
                     onClick={() => setSelectedAvatar(index)}
